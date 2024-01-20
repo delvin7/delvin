@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            height: 100vh; /* Full height of the viewport */
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .option-box {
+            width: 25%;
+            height: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .option-box:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .status-bar {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+        }
+        .option-box > h3 > a{
+            text-decoration: none;
+            color: #fff;
+        
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="options">
+            <div class="option-box" onclick="window.location.href='{{ url_for('leaverequest') }}'">
+                <h3><a>Leave Request</a></h3>
+            </div>
+            <div class="option-box" onclick="window.location.href='{{ url_for('permissionrequest') }}'">
+                <h3>Permission Request</h3>
+            </div>
+        </div>
+
+        <!-- Your other content goes here -->
+
+        <div class="status-bar">
+            Status Bar Content
+        </div>
+    </div>
+
+</body>
+</html>

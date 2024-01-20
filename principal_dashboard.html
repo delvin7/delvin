@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principal Home Page</title>
+    <style>
+        /* Reset some default styles for better consistency */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            padding: 8px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .view-btn {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+        }
+
+        .reject-btn {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+        }
+
+        .approve-btn {
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+        }
+
+        .reason-box-1 {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Welcome, Principal!</h2>
+
+        <h3>Leave/Permission Requests</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Request Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th>Reason for Rejection</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample request row, you need to dynamically generate rows based on actual data -->
+                <tr>
+                    <td>123456</td>
+                    <td>John Doe</td>
+                    <td>Computer Science</td>
+                    <td>Leave Request</td>
+                    <td>Pending</td>
+                    <td>
+                        <button class="view-btn" onclick="handleAction('View', 1)">View</button>
+                        <button class="reject-btn" onclick="toggleReasonBox(1)">Reject</button>
+                        <button class="approve-btn" onclick="handleAction('Approve', 1)">Approve</button>
+                    </td>
+                    <td class="reason-box-1" style="display: none;">
+                        <label for="reason">Reason for Rejection:</label>
+                        <textarea id="reason-1" name="reason" rows="4" placeholder="Enter reason..."></textarea>
+                        <button onclick="submitRejection(1)">Submit</button>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function toggleReasonBox(rowNumber) {
+            const reasonBox = document.querySelector(`.reason-box-${rowNumber}`);
+            reasonBox.style.display = reasonBox.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function handleAction(action, rowNumber) {
+            const reasonBox = document.querySelector(`.reason-box-${rowNumber}`);
+            
+            // You can perform additional actions based on the selected action (View, Reject, Approve)
+            if (action === 'View') {
+                alert(`Viewing request for row ${rowNumber}`);
+            } else if (action === 'Reject') {
+                reasonBox.style.display = 'block';
+            } else if (action === 'Approve') {
+                alert(`Approving request for row ${rowNumber}`);
+            }
+        }
+
+        function submitRejection(rowNumber) {
+            const reason = document.getElementById(`reason-${rowNumber}`).value;
+            alert(`Rejection reason submitted for row ${rowNumber}: ${reason}`);
+            // You can add Firebase logic to send the rejection reason to the student
+        }
+    </script>
+</body>
+</html>

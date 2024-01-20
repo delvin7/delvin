@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permission Request Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        select {
+            appearance: none;
+            background-color: #f2f2f2;
+            padding: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const participantsTableBody = document.getElementById('participantsTableBody');
+            const participantsNumberInput = document.getElementById('participantsNumber');
+
+            participantsNumberInput.addEventListener('input', function () {
+                updateParticipantsTable();
+            });
+
+            function updateParticipantsTable() {
+                const participantsNumber = participantsNumberInput.value;
+                participantsTableBody.innerHTML = '';
+
+                for (let i = 0; i < participantsNumber; i++) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><input type="text" name="participantName${i + 1}" required></td>
+                        <td><input type="text" name="participantSrNumber${i + 1}" required></td>
+                        <td><input type="text" name="participantBranch${i + 1}" required></td>
+                        <td><input type="text" name="participantSemester${i + 1}" required></td>
+                        <td><input type="file" name="participantSignature${i + 1}" accept="image/*" required></td>
+                    `;
+                    participantsTableBody.appendChild(row);
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Permission Request Form</h2>
+        <form action="permission_handler.php" method="post" enctype="multipart/form-data">
+            <label for="eventName">Name of the Event:</label>
+            <input type="text" id="eventName" name="eventName" required>
+
+            <label for="eventType">Type of Event:</label>
+            <select id="eventType" name="eventType" required>
+                <option value="technical">Technical</option>
+                <option value="cultural">Cultural</option>
+                <option value="sports">Sports or Game</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="eventVenue">Venue:</label>
+            <input type="text" id="eventVenue" name="eventVenue" required>
+
+            <label for="eventDate">Date of the Event:</label>
+            <input type="date" id="eventDate" name="eventDate" required>
+
+            <label for="participantsNumber">Number of Participants:</label>
+            <input type="number" id="participantsNumber" name="participantsNumber" min="1" required>
+
+            <label for="participantsDetails">Details of Participants:</label>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>SR Number</th>
+                        <th>Branch</th>
+                        <th>Semester</th>
+                        <th>Signature (Upload)</th>
+                    </tr>
+                </thead>
+                <tbody id="participantsTableBody">
+                    
+                </tbody>
+            </table>
+
+            <label for="teamLeaderName">Name of Team Leader:</label>
+            <input type="text" id="teamLeaderName" name="teamLeaderName" required>
+
+            <label for="teamLeaderContact">Contact Number of Team Leader:</label>
+            <input type="tel" id="teamLeaderContact" name="teamLeaderContact" pattern="[0-9]{10}" required>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+</body>
+</html>
